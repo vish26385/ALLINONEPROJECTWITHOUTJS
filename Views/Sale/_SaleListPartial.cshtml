@@ -1,0 +1,45 @@
+﻿@model ALLINONEPROJECTWITHOUTJS.Controllers.SaleViewModel
+
+<table class="table">
+    <thead>
+    <th>Item Name</th>
+    <th>Qty</th>
+    <th>Rate</th>
+    <th>Amount</th>
+    <th>Actions</th>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @for (int i = 0; i < (Model.salesMaster.salesDetails?.Count ?? 0); i++)
+            {
+                <tr>
+                    <td>
+                        <select name="salesMaster.salesDetails[@i].ItemId" onchange="this.form.submit()">
+                            <option value="0">-- Select Item --</option>
+                            @foreach (var item in Model.itemMasters)
+                            {
+                                @* <option value="@item.Id" @(Model.salesMaster.salesDetails[i].ItemId == item.Id ? "selected" : "")>@item.Name</option> *@
+                                @if (Model.salesMaster.salesDetails[i].ItemId == item.Id)
+                                {
+                                    <option value="@item.Id" selected>@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td><input type="number" oninput="this.form.submit()" name="salesMaster.salesDetails[@i].Qty" value="@Model.salesMaster.salesDetails[i].Qty" /></td>
+                    <td><input type="number" readonly name="salesMaster.salesDetails[@i].Rate" value="@Model.salesMaster.salesDetails[i].Rate" /></td>
+                    <td><input type="number" readonly name="salesMaster.salesDetails[@i].Amount" value="@Model.salesMaster.salesDetails[i].Amount" /></td>
+                    <td>
+                        <button type="submit" formaction="/Sale/AddNewRow">Add New Row</button>
+                        <button type="submit" formaction="/Sale/DeleteRow">Delete Row</button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

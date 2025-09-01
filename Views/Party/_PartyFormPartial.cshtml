@@ -1,0 +1,15 @@
+﻿@model ALLINONEPROJECTWITHOUTJS.Controllers.PartyMasterViewModel
+
+<div>
+    <input type="hidden" name="PartyMaster.Id" value="@Model.PartyMaster?.Id" />
+    <input autofocus type="text" placeholder="Party Name" name="PartyMaster.Name" value="@Model.PartyMaster?.Name" required />
+
+    @if (Model.PartyMaster != null && Model.PartyMaster.Id > 0)
+    {
+        <button type="submit" formaction="/Party/UpdateParty">Update</button>
+    }
+    else
+    {
+        <button type="submit" formaction="/Party/SaveParty">Save</button>
+    }
+</div>

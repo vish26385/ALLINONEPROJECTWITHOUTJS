@@ -1,0 +1,26 @@
+﻿<h2>Cart Items</h2>
+<table>
+    <thead>
+    <th>Item Name</th>
+    <th>Price</th>
+    <th>Actions</th>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><input type="text" readonly value="@item.Name" /></td>
+                    <td><input type="number" readonly value="@item.Price" /></td>
+                    <td>
+                        <form method="post" action="/Cart/RemoveFromCart">
+                            <input type="hidden" name="Id" value="@item.Id" />
+                            <button type="submit">Remove From Cart</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }        
+    </tbody>
+</table>

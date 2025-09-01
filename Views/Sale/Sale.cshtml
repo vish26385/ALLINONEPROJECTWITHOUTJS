@@ -1,0 +1,9 @@
+﻿<h2>Sales</h2>
+
+<form method="post" asp-controller="Sale" asp-action="Sale">
+    @Html.Partial("_SaleFormPartial")
+   
+    @Html.Partial("_SaleListPartial")
+</form>
+
+@Html.Partial("_SaleDataListPartial")

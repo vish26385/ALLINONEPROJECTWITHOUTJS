@@ -1,0 +1,43 @@
+﻿@model ALLINONEPROJECTWITHOUTJS.Controllers.ItemMasterViewModel
+
+<table>
+    <thead>
+    <th>Item Name</th>
+    <th>Price</th>
+    <th>Actions</th>
+    <th></th>
+    <th></th>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            //@foreach (var item in Model)
+            @for (int i = 0; i < (Model.itemMasters?.Count ?? 0); i++)
+            {
+                <tr>
+                    <input type="hidden" name="ItemMaster.Id" value=@Model.itemMasters[i].Id />
+                    <td><input type="text" readonly name="ItemMaster.Name" value="@Model.itemMasters[i].Name" /></td>
+                    <td><input type="number" readonly name="ItemMaster.Price" value=@Model.itemMasters[i].Price /></td>                    
+                    <td>
+                        <form method="post" action="/Item/EditItem">
+                            <input type="hidden" name="ItemMaster.Id" value=@Model.itemMasters[i].Id />
+                            <button type="submit" style="width:100px;">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" action="/Item/DeleteItem">
+                            <input type="hidden" name="Id" value=@Model.itemMasters[i].Id />
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" action="/Item/AddToCart">
+                            <input type="hidden" name="Id" value=@Model.itemMasters[i].Id />
+                            <button type="submit">Add To Cart</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

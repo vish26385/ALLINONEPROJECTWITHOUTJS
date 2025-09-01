@@ -1,0 +1,44 @@
+﻿@model ALLINONEPROJECTWITHOUTJS.Controllers.SaleViewModel
+
+<table class="table">
+    <thead>
+    <th>Code</th>
+    <th>Date</th>
+    <th>Qty</th>
+    <th>Amount</th>
+    <th>Due Date</th>
+    <th>Party</th>
+    <th>Actions</th>
+    <th></th>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @for (int i = 0; i < (Model.salesLists.Count); i++)
+            {
+                var totalQty = Model.salesLists[i].salesDetails?.Sum(d => d.Qty) ?? 0;
+                var totalAmount = Model.salesLists[i].salesDetails?.Sum(d => d.Qty * d.ItemMaster.Price) ?? 0;
+                <tr>
+                    <td><input type="number" readonly value="@Model.salesLists[i].Id" /></td>
+                    <td><input type="text" readonly value="@Model.salesLists[i].SaleDate.ToString("yyyy-MM-dd")" /></td>
+                    <td><input type="text" readonly value="@totalQty" /></td>
+                    <td><input type="text" readonly value="@totalAmount" /></td>
+                    <td><input type="text" readonly value="@Model.salesLists[i].DueDate.ToString("yyyy-MM-dd")" /></td>
+                    <td><input type="text" readonly value="@Model.salesLists[i].PartyMaster.Name" /></td>
+                    <td>
+                        <form method="post" action="/Sale/EditSale">
+                            <input type="hidden" name="id" readonly value="@Model.salesLists[i].Id" />
+                            <button type="submit" style="width:100%;">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" action="/Sale/DeleteSale">
+                            <input type="hidden" name="id" readonly value="@Model.salesLists[i].Id" />
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

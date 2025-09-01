@@ -1,0 +1,9 @@
+﻿@model ALLINONEPROJECTWITHOUTJS.Controllers.ItemMasterViewModel
+
+<h2>Items</h2>
+<form method="post">
+    @Html.Partial("_ItemFormPartial")
+    <hr />
+</form>
+<p>@ViewBag.Message</p>
+@Html.Partial("_ItemListPartial")

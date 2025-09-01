@@ -1,0 +1,47 @@
+﻿@model ALLINONEPROJECTWITHOUTJS.Controllers.SaleViewModel
+
+<div>
+    <table class="table">
+        <tr>
+            <input type="hidden" id="CalcSource" name="salesMaster.CalcSource" value="" />
+            <td><label>Code</label></td>
+            <td><input type="number" readonly name="salesMaster.Id" value=@Model.salesMaster.Id /></td>
+            <td><label>Date</label></td>
+            <td><input autofocus type="date" name="salesMaster.SaleDate" value="@Model.salesMaster.SaleDate.ToString("yyyy-MM-dd")" onchange="document.getElementById('CalcSource').value='SaleDate'; this.form.submit();" /></td>
+            <td><label>Due Days</label></td>
+            <td><input type="number" name="salesMaster.DueDays" value=@Model.salesMaster.DueDays oninput="document.getElementById('CalcSource').value='DueDays'; this.form.submit();" /></td>
+            <td><label>Due Date</label></td>
+            <td><input type="date" name="salesMaster.DueDate" value="@Model.salesMaster.DueDate.ToString("yyyy-MM-dd")" onchange="document.getElementById('CalcSource').value='DueDate'; this.form.submit();" /></td>
+            <td><label>Party</label></td>
+            <td>
+                <select name="salesMaster.PartyId">
+                    <option value="0">-- Select Party --</option>
+                    @foreach (var item in Model.partyMasters)
+                    {
+                        @* <option value=@item.Id selected="@(Model.salesMaster?.PartyId == @item.Id ? "selected" : null)">
+                            @item.Name
+                        </option> *@
+                        @if (Model.salesMaster?.PartyId == item.Id)
+                        {
+                            <option value="@item.Id" selected>@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </td>
+            <td>
+                @if (Model != null && Model.salesMaster.Id > 0)
+                {
+                    <button type="submit" formaction="/Sale/UpdateSale">Update</button>
+                }
+                else
+                {
+                    <button type="submit" formaction="/Sale/SaveSale">Save</button>
+                }
+            </td>
+        </tr>
+    </table>
+</div>

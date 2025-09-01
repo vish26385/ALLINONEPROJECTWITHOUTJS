@@ -1,0 +1,16 @@
+﻿@model ALLINONEPROJECTWITHOUTJS.Controllers.ItemMasterViewModel
+
+<div>
+    <input type="hidden" name="ItemMaster.Id" value="@Model.ItemMaster?.Id" />
+    <input autofocus type="text" placeholder="Item Name" name="ItemMaster.Name" value="@Model.ItemMaster?.Name" required />
+    <input type="number" step="0.01" placeholder="Item Price" name="ItemMaster.Price" value="@Model.ItemMaster?.Price" />
+    
+    @if (Model.ItemMaster != null && Model.ItemMaster.Id > 0)
+    {
+        <button type="submit" formaction="/Item/UpdateItem">Update</button>
+    }
+    else
+    {
+        <button type="submit" formaction="/Item/SaveItem">Save</button>
+    }
+</div>

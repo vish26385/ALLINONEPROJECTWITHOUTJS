@@ -1,0 +1,9 @@
+﻿@model ALLINONEPROJECTWITHOUTJS.Controllers.PartyMasterViewModel
+
+<h2>Parties</h2>
+<form method="post">
+    @Html.Partial("_PartyFormPartial")
+    <hr />
+</form>
+<p>@ViewBag.Message</p>
+@Html.Partial("_PartyListPartial")
