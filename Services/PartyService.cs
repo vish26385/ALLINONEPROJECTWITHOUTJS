@@ -17,7 +17,7 @@ namespace ALLINONEPROJECTWITHOUTJS.Services
             var parties = new List<PartyMaster>();
 
             using var con = new SqlConnection(_connectionString);
-            using var sda = new SqlDataAdapter("sp_GetAllParties", con);
+            using var sda = new SqlDataAdapter("select * from partymasters", con);
             var partyData = new DataTable();
             sda.Fill(partyData);
 
