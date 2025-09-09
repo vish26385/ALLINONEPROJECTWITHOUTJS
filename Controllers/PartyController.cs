@@ -36,6 +36,7 @@ namespace ALLINONEPROJECTWITHOUTJS.Controllers
             using var cmd = new SqlCommand("sp_insertParty", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@PartyName", party.PartyMaster.Name);
+            cmd.Parameters.AddWithValue("@PartyType", party.PartyMaster.Type);
             con.Open();
             cmd.ExecuteNonQuery();
             ViewBag.Message = "Saved Successfully!";
@@ -63,6 +64,7 @@ namespace ALLINONEPROJECTWITHOUTJS.Controllers
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Id", party.PartyMaster.Id);
             cmd.Parameters.AddWithValue("@PartyName", party.PartyMaster.Name);
+            cmd.Parameters.AddWithValue("@PartyType", party.PartyMaster.Type);
             con.Open();
             cmd.ExecuteNonQuery();
             ViewBag.Message = "Saved Successfully!";
