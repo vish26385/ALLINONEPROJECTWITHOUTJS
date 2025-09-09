@@ -1,45 +1,87 @@
 ﻿@model ALLINONEPROJECTWITHOUTJS.Controllers.SaleViewModel
 
-<table class="table">
-    <thead>
-    <th>Item Name</th>
-    <th>Qty</th>
-    <th>Rate</th>
-    <th>Amount</th>
-    <th>Actions</th>
-    </thead>
-    <tbody>
-        @if (Model != null)
-        {
-            @for (int i = 0; i < (Model.salesMaster.salesDetails?.Count ?? 0); i++)
-            {
-                <tr>
-                    <td>
-                        <select name="salesMaster.salesDetails[@i].ItemId" onchange="this.form.submit()">
-                            <option value="0">-- Select Item --</option>
-                            @foreach (var item in Model.itemMasters)
-                            {
-                                @* <option value="@item.Id" @(Model.salesMaster.salesDetails[i].ItemId == item.Id ? "selected" : "")>@item.Name</option> *@
-                                @if (Model.salesMaster.salesDetails[i].ItemId == item.Id)
-                                {
-                                    <option value="@item.Id" selected>@item.Name</option>
-                                }
-                                else
-                                {
-                                    <option value="@item.Id">@item.Name</option>
-                                }
-                            }
-                        </select>
-                    </td>
-                    <td><input type="number" oninput="this.form.submit()" name="salesMaster.salesDetails[@i].Qty" value="@Model.salesMaster.salesDetails[i].Qty" /></td>
-                    <td><input type="number" readonly name="salesMaster.salesDetails[@i].Rate" value="@Model.salesMaster.salesDetails[i].Rate" /></td>
-                    <td><input type="number" readonly name="salesMaster.salesDetails[@i].Amount" value="@Model.salesMaster.salesDetails[i].Amount" /></td>
-                    <td>
-                        <button type="submit" formaction="/Sale/AddNewRow">Add New Row</button>
-                        <button type="submit" formaction="/Sale/DeleteRow">Delete Row</button>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+<div class="card shadow-sm border-0 rounded-4 mb-4">
+    <div class="card-body">
+        @* <h5 class="mb-3 fw-semibold text-primary">Sale Items</h5> *@
+
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th style="width:30%">Item Name</th>
+                        <th style="width:15%">Qty</th>
+                        <th style="width:15%">Rate</th>
+                        <th style="width:15%">Amount</th>
+                        <th style="width:25%">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        @for (int i = 0; i < (Model.salesMaster.salesDetails?.Count ?? 0); i++)
+                        {
+                            <tr>
+                                <!-- Item Dropdown -->
+                                <td>
+                                    <select class="form-select" name="salesMaster.salesDetails[@i].ItemId" onchange="this.form.submit()">
+                                        <option value="0">-- Select Item --</option>
+                                        @foreach (var item in Model.itemMasters)
+                                        {
+                                            if (Model.salesMaster.salesDetails[i].ItemId == item.Id)
+                                            {
+                                                <option value="@item.Id" selected>@item.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+
+                                <!-- Qty -->
+                                <td>
+                                    <input type="number" class="form-control text-center"
+                                           name="salesMaster.salesDetails[@i].Qty"
+                                           value="@Model.salesMaster.salesDetails[i].Qty"
+                                           oninput="this.form.submit()" />
+                                </td>
+
+                                <!-- Rate -->
+                                <td>
+                                    <input type="number" class="form-control text-end" readonly
+                                           name="salesMaster.salesDetails[@i].Rate"
+                                           value="@Model.salesMaster.salesDetails[i].Rate" />
+                                </td>
+
+                                <!-- Amount -->
+                                <td>
+                                    <input type="number" class="form-control text-end fw-semibold bg-light" readonly
+                                           name="salesMaster.salesDetails[@i].Amount"
+                                           value="@Model.salesMaster.salesDetails[i].Amount" />
+                                </td>
+
+                                <!-- Actions -->
+                                <td class="text-center">
+                                    <div class="btn-group" role="group">
+                                        <button type="submit" formaction="/Sale/AddNewRow"
+                                                class="btn btn-sm btn-outline-success">
+                                            <i class="bi bi-plus-circle"></i> Add
+                                        </button>
+                                        <button type="submit" formaction="/Sale/DeleteRow"
+                                                class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i> Delete
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">

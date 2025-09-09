@@ -1,9 +1,50 @@
-﻿<h2>Sales</h2>
+﻿@{
+    ViewData["Title"] = "Sales Invoice";
+}
 
-<form method="post" asp-controller="Sale" asp-action="Sale">
-    @Html.Partial("_SaleFormPartial")
-   
-    @Html.Partial("_SaleListPartial")
-</form>
+<div class="container my-4">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center rounded-top-4">
+            <h4 class="mb-0"><i class="bi bi-receipt-cutoff"></i> Sales Invoice</h4>
+            <span class="badge bg-light text-dark px-3 py-2">#Invoice</span>
+        </div>
 
-@Html.Partial("_SaleDataListPartial")
+        <div class="card-body p-4">
+            <form method="post" asp-controller="Sale" asp-action="Sale">
+                <!-- Invoice Form -->
+                <div class="mb-4">
+                    @Html.Partial("_SaleFormPartial")
+                </div>
+
+                <!-- Item List -->
+                <div class="mb-4">
+                    @* <h5 class="text-secondary mb-3"><i class="bi bi-basket"></i> Add Items</h5> *@
+                    @Html.Partial("_SaleListPartial")
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="text-end mt-4">
+                    @* <button type="submit" class="btn btn-success px-4 shadow-sm me-2">
+                        <i class="bi bi-save"></i> Save Invoice
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary px-4">
+                        <i class="bi bi-arrow-clockwise"></i> Reset
+                    </button> *@
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Invoice Data / History -->
+    <div class="card shadow-sm border-0 rounded-4 mt-4">
+        @* <div class="card-header bg-dark text-white rounded-top-4">
+            <h5 class="mb-0"><i class="bi bi-journal-text"></i> Previous Sales</h5>
+        </div> *@
+        <div class="card-body p-0">
+            @Html.Partial("_SaleDataListPartial")
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
