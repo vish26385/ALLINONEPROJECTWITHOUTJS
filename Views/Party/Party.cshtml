@@ -1,9 +1,49 @@
 ﻿@model ALLINONEPROJECTWITHOUTJS.Controllers.PartyMasterViewModel
 
-<h2>Parties</h2>
-<form method="post">
-    @Html.Partial("_PartyFormPartial")
-    <hr />
-</form>
-<p>@ViewBag.Message</p>
-@Html.Partial("_PartyListPartial")
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <!-- Form Card -->
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-success text-white fw-bold rounded-top-4">
+                    <i class="bi bi-people-fill"></i> Add / Edit Party
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        @Html.Partial("_PartyFormPartial")
+                        <div class="text-end mt-3">
+                            @* <button type="submit" class="btn btn-success px-4">
+                                <i class="bi bi-check-circle"></i> Save
+                            </button>
+                            <button type="reset" class="btn btn-secondary px-4">
+                                <i class="bi bi-arrow-clockwise"></i> Reset
+                            </button> *@
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(ViewBag.Message as string))
+            {
+                <div class="alert alert-info mt-3 shadow-sm">
+                    <i class="bi bi-info-circle"></i> @ViewBag.Message
+                </div>
+            }
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <!-- List Card -->
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-info text-white fw-bold rounded-top-4">
+                    <i class="bi bi-list-ul"></i> Party List
+                </div>
+                <div class="card-body">
+                    @Html.Partial("_PartyListPartial")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">

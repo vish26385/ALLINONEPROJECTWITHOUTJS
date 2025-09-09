@@ -1,13 +1,43 @@
-﻿<h2>Register</h2>
-<form method="post" action="/Account/Register">
-    <table>
-        <tr><td><label>Username</label></td></tr>
-        <tr><td><input type="text" required name="userName" placeholder="Enter Username" style="width:100%;" /></td></tr>
-        <tr><td><label>Email</label></td></tr>
-        <tr><td><input type="email" required name="userEmail" placeholder="Enter Email" style="width:100%;" /></td></tr>
-        <tr><td><label>Password</label></td></tr>
-        <tr><td><input type="password" required name="userPassword" placeholder="Enter Password" style="margin-bottom:5px;width:100%;" /></td></tr>
-        <tr><td><button type="submit" style="width:100%;">Register</button></td></tr>
-        <tr><td><label>Already member?</label><a href="/Account/Login">Sign in</a></td></tr>
-    </table>
-</form>
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+    <div class="card shadow-lg border-0 rounded-4" style="width: 420px;">
+        <div class="card-header bg-success text-white text-center fw-bold rounded-top-4">
+            <i class="bi bi-person-plus-fill"></i> Register
+        </div>
+        <div class="card-body p-4">
+            <form method="post" action="/Account/Register">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control shadow-sm" id="username"
+                           name="userName" placeholder="Enter Username" required />
+                    <label for="username"><i class="bi bi-person"></i> Username</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control shadow-sm" id="email"
+                           name="userEmail" placeholder="Enter Email" required />
+                    <label for="email"><i class="bi bi-envelope"></i> Email</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control shadow-sm" id="password"
+                           name="userPassword" placeholder="Enter Password" required />
+                    <label for="password"><i class="bi bi-lock"></i> Password</label>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100 shadow-sm fw-bold">
+                    <i class="bi bi-check-circle"></i> Register
+                </button>
+            </form>
+        </div>
+        <div class="card-footer text-center bg-light rounded-bottom-4">
+            <span class="small">Already a member? </span>
+            <a href="/Account/Login" class="fw-semibold text-success text-decoration-none">Sign in</a>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">

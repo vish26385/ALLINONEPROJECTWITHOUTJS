@@ -1,26 +1,95 @@
-﻿<h2>Cart Items</h2>
-<table>
-    <thead>
-    <th>Item Name</th>
-    <th>Price</th>
-    <th>Actions</th>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Count > 0)
-        {
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td><input type="text" readonly value="@item.Name" /></td>
-                    <td><input type="number" readonly value="@item.Price" /></td>
-                    <td>
-                        <form method="post" action="/Cart/RemoveFromCart">
-                            <input type="hidden" name="Id" value="@item.Id" />
-                            <button type="submit">Remove From Cart</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        }        
-    </tbody>
-</table>
+﻿@model List<ALLINONEPROJECTWITHOUTJS.Models.ItemMaster>
+
+<div class="container my-4">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-cart-fill"></i> Your Cart</h5>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Item Name</th>
+                                <th style="width:20%">Price</th>
+                                <th style="width:30%" class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="fw-semibold">@item.Name</td>
+                                        <td class="text-success fw-bold">₹@item.Price</td>
+                                        <td class="text-center">
+                                            <form method="post" action="/Cart/RemoveFromCart" class="d-inline"
+                                                  onsubmit="return confirm('Are you sure you want to remove this item?');">
+                                                <input type="hidden" name="Id" value="@item.Id" />
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="bi bi-trash3"></i> Remove
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted py-3">
+                                        <i class="bi bi-info-circle"></i> Your cart is empty.
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Summary Section -->
+        <div class="col-lg-4 mt-4 mt-lg-0">
+            <div class="card shadow-sm border-success">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0"><i class="bi bi-cash-coin"></i> Order Summary</h6>
+                </div>
+                <div class="card-body">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        var totalAmount = Model?.Sum(i => i.Price) ?? 0;
+                        <ul class="list-group mb-3">
+                            @foreach (var item in Model)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @item.Name
+                                    <span class="text-success fw-semibold">₹@item.Price</span>
+                                </li>
+                            }
+                        </ul>
+                        <h5 class="d-flex justify-content-between">
+                            <span>Total:</span>
+                            <span class="text-success fw-bold">
+                                ₹@totalAmount
+                            </span>
+                        </h5>
+                        <div class="d-grid mt-3">
+                            <button class="btn btn-primary">
+                                <i class="bi bi-credit-card"></i> Checkout
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No items to summarize.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
